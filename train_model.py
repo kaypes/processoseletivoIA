@@ -26,3 +26,22 @@ model = keras.Sequential(
 
 model.summary()
 
+model.compile(
+    optimizer="adam",
+    loss="sparse_categorical_crossentropy",
+    metrics=["accuracy"],
+)
+
+model.fit(
+    x_train,
+    y_train,
+    epochs=5,
+    batch_size=128,
+    validation_split=0.1,
+    verbose=1,
+)
+
+loss, accuracy = model.evaluate(x_test, y_test, verbose=0)
+print(f"\nAcurácia final no conjunto de teste: {accuracy * 100:.2f}%")
+model.save("model.h5")
+print("Modelo salvo em: model.h5")
